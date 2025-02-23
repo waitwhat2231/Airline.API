@@ -2,6 +2,7 @@ using Airline.API.Extensions;
 using Airline.Application.Extensions;
 using Airline.Domain.Entities;
 using Airline.Infrastructure.Extensions;
+using Airline.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,8 @@ var app = builder.Build();
 
 var scope = app.Services.CreateScope(); //for seeders
 // example: var govSeeder = scope.ServiceProvider.GetRequiredService<IGovernorateSeeder>();
-
+var rolesSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
+await rolesSeeder.Seed();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

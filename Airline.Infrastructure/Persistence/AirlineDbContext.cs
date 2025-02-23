@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Airline.Infrastructure.Persistence
 {
-    internal class AirlineDbContext(DbContextOptions<AirlineDbContext> options) : IdentityDbContext<User>(options)
+    public class AirlineDbContext(DbContextOptions<AirlineDbContext> options) : IdentityDbContext<User>(options)
     {
         internal DbSet<Airline.Domain.Entities.Airline> Airlines { get; set; }
         internal DbSet<Airport> Airports { get; set; }
