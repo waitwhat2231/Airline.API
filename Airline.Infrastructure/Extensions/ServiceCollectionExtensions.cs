@@ -17,7 +17,8 @@ public static class ServiceCollectionExtensions
 		var connectionString = configuration.GetConnectionString("AirlineConnectionString");
 		services.AddDbContext<AirlineDbContext>(options => options.UseSqlServer(connectionString));
 		services.AddScoped<IAirlineRepository, AirlineRepository>();
-		services.AddScoped<IRolesSeeder, RolesSeeder>();
+        services.AddScoped<IAirportRepository, AirportRepository>();
+        services.AddScoped<IRolesSeeder, RolesSeeder>();
 		services.AddScoped<ITokenRepository, TokenRepository>();
 		services.AddScoped<IAccountRepository, AccountRepository>();
 		//this for identity and jwt when needed

@@ -12,6 +12,6 @@ namespace Airline.Application.Airline.Dtos
         public string Name { get; set; } = default!;
         public string ContactNumber { get; set; } = default!;
         public String AdminId { get; set; } = default!;
-        public IEnumerable<Flight> Flights = [];
+        public IEnumerable<Domain.Entities.Flight> Flights = [];
     }
 }

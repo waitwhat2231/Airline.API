@@ -11,5 +11,6 @@ namespace Airline.Domain.Repositories
     {
         public Task<int> Add(Airline.Domain.Entities.Airline entity);
         public Task<Entities.Airline?> GetById(int id);
+        public Task DeleteAirline(int id);
     }
 }

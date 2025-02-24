@@ -25,7 +25,7 @@ namespace Airline.Infrastructure.Persistence
                 entity.HasOne(f => f.Airline)
                 .WithMany(a => a.Flights)
                 .HasForeignKey(f => f.AirlineId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(f => f.FromAirport)
                 .WithMany(ai => ai.FlightsFrom)
@@ -40,7 +40,7 @@ namespace Airline.Infrastructure.Persistence
                 entity.HasMany(f => f.Reservations)
                 .WithOne(r => r.PayedForFlight)
                 .HasForeignKey(r => r.FlightId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
             }
             );
             modelBuilder.Entity<Reservation>(entity =>

@@ -20,7 +20,12 @@ namespace Airline.Infrastructure.Repositories
             return entity.Id;
         }
 
-       public async Task<Domain.Entities.Airline?> GetById(int id)
+        public Task DeleteAirline(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Domain.Entities.Airline?> GetById(int id)
         {
             var airline = await context.Airlines.Include(ai => ai.Flights)
                 .FirstOrDefaultAsync(ai => ai.Id == id);
@@ -31,6 +36,7 @@ namespace Airline.Infrastructure.Repositories
             }
             return airline;
         }
+        
 
     }
 }
