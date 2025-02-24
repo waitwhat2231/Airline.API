@@ -1,4 +1,5 @@
 ﻿using Airline.Domain.Entities;
+using Airline.Domain.Exceptions;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +21,12 @@ namespace Airline.Infrastructure.Repositories
     {
         public async Task<User> GetUserAsync(string id)
         {
-            return await userManager.FindByIdAsync(id);
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                throw new NotFoundException("Not Found");
+            }
+            return user;
         }
         public async Task<bool> FillWallet(string email, int amount)
         {
@@ -58,6 +64,15 @@ namespace Airline.Infrastructure.Repositories
 
         public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
         {
+            var userInSystem = await userManager.FindByEmailAsync(user.Email);
+            if (userInSystem != null){
+                throw new UserAlreadyExistsException(user.Email);
+            }
+            userInSystem = await getFromPassportNum(user.PassportNumber);
+            if (userInSystem != null)
+            {
+                throw new UserAlreadyExistsException(user.Email);
+            }
             var check = await userManager.CreateAsync(user, password);
 
             if (check.Succeeded)
@@ -67,6 +82,10 @@ namespace Airline.Infrastructure.Repositories
                 await dbcontext.SaveChangesAsync();
             }
             return check.Errors;
+        }
+        private async Task<User> getFromPassportNum(string passportNum) {
+            var user = await dbcontext.Users.FirstOrDefaultAsync(u => u.PassportNumber == passportNum);
+            return user;
         }
         public async Task<int> NumberOfUsersInRole(string roleId)
         {

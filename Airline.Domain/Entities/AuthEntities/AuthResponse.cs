@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Airline.Domain.Entities.AuthEntities
 {
-  {
-    public class AuthResponse
+   public class AuthResponse
     {
         public string? Token { get; set; }
         public string? Username { get; set; }

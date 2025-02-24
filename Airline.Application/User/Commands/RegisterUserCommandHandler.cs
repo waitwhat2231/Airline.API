@@ -10,11 +10,15 @@ using System.Threading.Tasks;
 
 namespace Airline.Application.User.Commands
 {
-    public class RegisterUserCommandHandler(IAccountRepository accountRepository,IMapper mapper) : IRequestHandler<RegisterUserCommand, IEnumerable<IdentityError>>
+    public class RegisterUserCommandHandler(IAccountRepository accountRepository,
+        IMapper mapper
+        ) : IRequestHandler<RegisterUserCommand, IEnumerable<IdentityError>>
     {
         public async Task<IEnumerable<IdentityError>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
+
             var user = mapper.Map<Domain.Entities.User>(request);
+            
             var errors = await accountRepository.RegisterUser(user, request.Password);
             return errors;
         }

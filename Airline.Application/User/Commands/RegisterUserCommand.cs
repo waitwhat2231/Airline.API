@@ -15,6 +15,8 @@ namespace Airline.Application.User.Commands
         public string UserName { get; set; } = default!;
         [EmailAddress]
         public string Email { get; set; } = default!;
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Must be made of numbers")]
+        public string PassportNumber { get; set; }
         [PasswordPropertyText]
         public string Password { get; set; } = default!;
     }

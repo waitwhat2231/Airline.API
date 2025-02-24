@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Airline.Application.Users;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,5 +18,6 @@ public static class ServiceCollectionExtensions
 				.AddFluentValidationAutoValidation();
 
 		services.AddAutoMapper(applicationAssembly);
+		services.AddScoped<IUserContext, UserContext>();
 	}
 }
