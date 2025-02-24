@@ -14,7 +14,7 @@ namespace Airline.Infrastructure.Repositories
     {
        public async Task<int> Add(Domain.Entities.Airline entity)
         {
-            entity.AdminId = "ASdasd";
+            
            context.Airlines.Add(entity);
             await context.SaveChangesAsync();
             return entity.Id;

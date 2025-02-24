@@ -35,6 +35,10 @@ var scope = app.Services.CreateScope(); //for seeders
 var rolesSeeder = scope.ServiceProvider.GetRequiredService<IRolesSeeder>();
 
 await rolesSeeder.Seed();
+
+var adminSeeder = scope.ServiceProvider.GetRequiredService<IAdminSeeder>();
+
+await adminSeeder.Seed();
 // Configure the HTTP request pipeline.
 
 app.UseMiddleware<ExceptionHandlingMiddlewares>();

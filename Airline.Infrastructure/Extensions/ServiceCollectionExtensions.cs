@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<IAirlineRepository, AirlineRepository>();
         services.AddScoped<IAirportRepository, AirportRepository>();
         services.AddScoped<IRolesSeeder, RolesSeeder>();
+		services.AddScoped<IAdminSeeder, AdminSeeder>();
 		services.AddScoped<ITokenRepository, TokenRepository>();
 		services.AddScoped<IAccountRepository, AccountRepository>();
 		//this for identity and jwt when needed

@@ -2,6 +2,7 @@
 using Airline.Application.Airline.Dtos;
 using Airline.Application.Airline.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airline.API.Controllers
@@ -11,6 +12,7 @@ namespace Airline.API.Controllers
     {
         
         [HttpPost("/api/airline")]
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult>AddAirline(AddAirlineCommand command)
         {
             var Id = await mediator.Send(command);
