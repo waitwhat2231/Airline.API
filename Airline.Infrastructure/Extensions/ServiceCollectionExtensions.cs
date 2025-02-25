@@ -6,7 +6,8 @@ using Airline.Domain.Entities;
 using Airline.Infrastructure.Persistence;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Repositories;
-using Airline.Infrastructure.Seeders;
+using Airline.Infrastructure.Seeders.Roles;
+using Airline.Infrastructure.Seeders.Admin;
 
 namespace Airline.Infrastructure.Extensions;
 
@@ -18,6 +19,7 @@ public static class ServiceCollectionExtensions
 		services.AddDbContext<AirlineDbContext>(options => options.UseSqlServer(connectionString));
 		services.AddScoped<IAirlineRepository, AirlineRepository>();
         services.AddScoped<IAirportRepository, AirportRepository>();
+		services.AddScoped<IFlightRepository, FlightRepository>();
         services.AddScoped<IRolesSeeder, RolesSeeder>();
 		services.AddScoped<IAdminSeeder, AdminSeeder>();
 		services.AddScoped<ITokenRepository, TokenRepository>();

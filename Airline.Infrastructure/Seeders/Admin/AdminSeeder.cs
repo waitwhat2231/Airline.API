@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Infrastructure.Seeders
+namespace Airline.Infrastructure.Seeders.Admin
 {
     public class AdminSeeder(AirlineDbContext context,
         UserManager<User> userManager
-        ,IAccountRepository repository) : IAdminSeeder
+        , IAccountRepository repository) : IAdminSeeder
     {
         public async Task Seed()
         {

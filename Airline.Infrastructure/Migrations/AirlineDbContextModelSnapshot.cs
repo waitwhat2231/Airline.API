@@ -30,19 +30,22 @@ namespace Airline.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AdminId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ContactNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerID")
+                        .IsUnique();
 
                     b.ToTable("Airlines");
                 });
@@ -103,6 +106,57 @@ namespace Airline.Infrastructure.Migrations
                     b.HasIndex("ToAirportId");
 
                     b.ToTable("Flights");
+                });
+
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PassengerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("PaymentStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FlightId");
+
+                    b.HasIndex("PassengerId");
+
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.User", b =>
@@ -175,57 +229,6 @@ namespace Airline.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
-
-                    b.ToTable("Payments");
-                });
-
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PassengerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("PaymentStatus")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlightId");
-
-                    b.HasIndex("PassengerId");
-
-                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -361,6 +364,17 @@ namespace Airline.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Airline.Domain.Entities.Airline", b =>
+                {
+                    b.HasOne("Airline.Domain.Entities.User", "Manager")
+                        .WithOne()
+                        .HasForeignKey("Airline.Domain.Entities.Airline", "ManagerID")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+                });
+
             modelBuilder.Entity("Airline.Domain.Entities.Flight", b =>
                 {
                     b.HasOne("Airline.Domain.Entities.Airline", "Airline")
@@ -388,9 +402,9 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("ToAirport");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Payment", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Payment", b =>
                 {
-                    b.HasOne("Airline.Domain.Entities._ٌReservationEntities.Reservation", "Reservation")
+                    b.HasOne("Airline.Domain.Entities.ReservationEntities.Reservation", "Reservation")
                         .WithMany("PaymentRecord")
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -399,7 +413,7 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
                 {
                     b.HasOne("Airline.Domain.Entities.Flight", "PayedForFlight")
                         .WithMany("Reservations")
@@ -486,14 +500,14 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("Reservations");
                 });
 
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
+                {
+                    b.Navigation("PaymentRecord");
+                });
+
             modelBuilder.Entity("Airline.Domain.Entities.User", b =>
                 {
                     b.Navigation("reservations");
-                });
-
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
-                {
-                    b.Navigation("PaymentRecord");
                 });
 #pragma warning restore 612, 618
         }

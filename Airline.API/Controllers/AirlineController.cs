@@ -8,17 +8,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace Airline.API.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class AirlineController(IMediator mediator) : ControllerBase
     {
         
-        [HttpPost("/api/airline")]
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult>AddAirline(AddAirlineCommand command)
         {
             var Id = await mediator.Send(command);
             return CreatedAtAction(nameof(GetAirline),new {Id},null);
         }
-        [HttpGet("/api/airline/{Id}")]
+        [HttpGet("{Id}")]
         public async Task<ActionResult> GetAirline([FromRoute]int Id)
         {
             var request = new GetAirlineQuery(Id);

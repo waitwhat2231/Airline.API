@@ -1,5 +1,6 @@
-﻿using Airline.Application.User.Commands;
-using Airline.Application.User.Commands.Login;
+﻿using Airline.Application.User.Commands.Login;
+using Airline.Application.User.Commands.Register;
+using Airline.Application.User.Commands.Register.AirlineManager;
 using Airline.Application.User.Commands.Token;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +15,7 @@ namespace Airline.API.Controllers
     {
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult>RegisterUser(RegisterUserCommand command)
+        public async Task<ActionResult>RegisterUser([FromBody] RegisterUserCommand command)
         {
             var res = await mediator.Send(command);
             if (res.Any())
@@ -24,8 +25,16 @@ namespace Airline.API.Controllers
             return Ok(res);
         }
         [HttpPost]
-        [Route("Login")]
-        public async Task<IActionResult> Login(LoginUserCommand request)
+        [Route("register/managerregister")]
+        [Authorize(Roles ="Administrator")]
+        public async Task<ActionResult> RegisterAirlineManager([FromBody] RegisterAirlineManagerCommand request)
+        {
+            var Id = await mediator.Send(request);
+            return Ok(Id);
+        }
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody]LoginUserCommand request)
         {
             var result = await mediator.Send(request);
             if (result == null)
@@ -36,7 +45,7 @@ namespace Airline.API.Controllers
         }
 
         [HttpPost]
-        [Route("RefreshToken")]
+        [Route("refreshToken")]
         [Authorize]
         public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequestCommand request)
         {

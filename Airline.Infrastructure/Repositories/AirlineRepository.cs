@@ -27,7 +27,8 @@ namespace Airline.Infrastructure.Repositories
 
         public async Task<Domain.Entities.Airline?> GetById(int id)
         {
-            var airline = await context.Airlines.Include(ai => ai.Flights)
+            var airline = await context.Airlines
+                .Include(ai => ai.Flights)
                 .FirstOrDefaultAsync(ai => ai.Id == id);
                 
             if (airline == null)

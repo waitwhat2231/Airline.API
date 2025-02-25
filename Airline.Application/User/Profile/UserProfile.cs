@@ -1,4 +1,5 @@
-﻿using Airline.Application.User.Commands;
+﻿using Airline.Application.User.Commands.Register;
+using Airline.Application.User.Commands.Register.AirlineManager;
 using Airline.Domain;
 using AutoMapper;
 using System;
@@ -14,6 +15,7 @@ namespace Airline.Application.User.Profile
         public UserProfile()
         {
             CreateMap<RegisterUserCommand,Domain.Entities.User>().ReverseMap();
+            CreateMap<RegisterAirlineManagerCommand, Domain.Entities.User>().ReverseMap();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Airline.Domain.Entities;
-using Airline.Domain.Entities._ٌReservationEntities;
+using Airline.Domain.Entities.ReservationEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -54,6 +54,12 @@ namespace Airline.Infrastructure.Persistence
                 .HasForeignKey(r => r.PassengerId);
             }
             );
+            modelBuilder.Entity<Domain.Entities.Airline>()
+                .HasOne(ai => ai.Manager)
+                .WithOne()
+                .HasForeignKey<Domain.Entities.Airline>(ai => ai.ManagerID)
+                .OnDelete(deleteBehavior: DeleteBehavior.ClientCascade)
+                ;
                 
 
         }

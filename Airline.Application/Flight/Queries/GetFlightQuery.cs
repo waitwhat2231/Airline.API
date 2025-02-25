@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Infrastructure.Seeders
+namespace Airline.Application.Flight.Queries
 {
-    public interface IAdminSeeder
+    public class GetFlightQuery(int Id)
     {
-        public Task Seed();
+        public int Id { get; set; } = Id;
     }
 }

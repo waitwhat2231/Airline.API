@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Domain.Entities._ٌReservationEntities
+namespace Airline.Domain.Entities.ReservationEntities
 {
     public class Payment
     {

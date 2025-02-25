@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Application.User.Commands
+namespace Airline.Application.User.Commands.Register
 {
     public class RegisterUserCommandHandler(IAccountRepository accountRepository,
         IMapper mapper
@@ -18,7 +18,7 @@ namespace Airline.Application.User.Commands
         {
 
             var user = mapper.Map<Domain.Entities.User>(request);
-            
+
             var errors = await accountRepository.RegisterUser(user, request.Password);
             return errors;
         }

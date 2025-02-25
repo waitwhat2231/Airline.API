@@ -1,4 +1,4 @@
-﻿using Airline.Domain.Entities._ٌReservationEntities;
+﻿using Airline.Domain.Entities.ReservationEntities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;

@@ -13,7 +13,8 @@ namespace Airline.Domain.Entities
         public string Name { get; set; } = default!;
         public string ContactNumber { get; set; } = default!;
 
-        public String AdminId { get; set; } = default!;
+        public string ManagerID { get; set; } = default!;
+        public Domain.Entities.User Manager { get; set; } = default!;
         public IEnumerable<Flight> Flights = new List<Flight>();
 
     }

@@ -18,7 +18,7 @@ namespace Airline.Application.Airline.Commands
         {
             var userId = userContext.GetCurrentUser()?.Id;
             var airline = mapper.Map<Domain.Entities.Airline>(request);
-            airline.AdminId = userId;
+            airline.ManagerID = userId;
             int id = await airlineRepository.Add(airline);
             return id;
         }

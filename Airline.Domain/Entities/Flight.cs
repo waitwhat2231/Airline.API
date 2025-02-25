@@ -1,4 +1,4 @@
-﻿using Airline.Domain.Entities._ٌReservationEntities;
+﻿using Airline.Domain.Entities.ReservationEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +19,7 @@ namespace Airline.Domain.Entities
         public DateTime DepartureTime { get; set; }
         public int ExpectedHoursFlightTime { get; set; }
         public int AvailableSeats { get; set; }
-        public IEnumerable<Reservation> Reservations = new List<Reservation>();
+        public IEnumerable<Domain.Entities.ReservationEntities.Reservation> Reservations = new List<Reservation>();
         public Airline Airline { get; set; } = default!;
         public Airport FromAirport { get; set; } = default!;
         public Airport ToAirport { get; set; } = default!;

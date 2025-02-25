@@ -3,7 +3,8 @@ using Airline.API.Middlewares;
 using Airline.Application.Extensions;
 using Airline.Domain.Entities;
 using Airline.Infrastructure.Extensions;
-using Airline.Infrastructure.Seeders;
+using Airline.Infrastructure.Seeders.Admin;
+using Airline.Infrastructure.Seeders.Roles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +50,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
+//app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
 
 app.UseCors("AllowAll");
 

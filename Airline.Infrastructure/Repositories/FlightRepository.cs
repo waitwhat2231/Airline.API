@@ -1,5 +1,5 @@
 ﻿using Airline.Domain.Entities;
-using Airline.Domain.Entities._ٌReservationEntities;
+using Airline.Domain.Entities.ReservationEntities;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;

@@ -179,7 +179,7 @@ namespace Airline.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Payment", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -203,7 +203,7 @@ namespace Airline.Infrastructure.Migrations
                     b.ToTable("Payments");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -390,9 +390,9 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("ToAirport");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Payment", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Payment", b =>
                 {
-                    b.HasOne("Airline.Domain.Entities._ٌReservationEntities.Reservation", "Reservation")
+                    b.HasOne("Airline.Domain.Entities.ReservationEntities.Reservation", "Reservation")
                         .WithMany("PaymentRecord")
                         .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,7 +401,7 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("Reservation");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
                 {
                     b.HasOne("Airline.Domain.Entities.Flight", "PayedForFlight")
                         .WithMany("Reservations")
@@ -493,7 +493,7 @@ namespace Airline.Infrastructure.Migrations
                     b.Navigation("reservations");
                 });
 
-            modelBuilder.Entity("Airline.Domain.Entities._ٌReservationEntities.Reservation", b =>
+            modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
                 {
                     b.Navigation("PaymentRecord");
                 });

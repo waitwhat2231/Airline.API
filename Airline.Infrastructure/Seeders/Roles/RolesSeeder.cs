@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Infrastructure.Seeders
+namespace Airline.Infrastructure.Seeders.Roles
 {
     public class RolesSeeder(AirlineDbContext context) : IRolesSeeder
     {
@@ -34,8 +34,14 @@ namespace Airline.Infrastructure.Seeders
                 {
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
-                }];
-                return roles;
+                },
+                new ()
+                {
+                    Name = "AirlineManager",
+                    NormalizedName = "AIRLINEMANAGER"
+                }
+                ];
+            return roles;
         }
     }
 }

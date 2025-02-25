@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Infrastructure.Seeders
+namespace Airline.Infrastructure.Seeders.Admin
 {
-    public interface IRolesSeeder
+    public interface IAdminSeeder
     {
-        Task Seed();
+        public Task Seed();
     }
 }
