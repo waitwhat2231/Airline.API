@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Application.Airline.Commands
+namespace Airline.Application.Airline.Commands.Add
 {
     public class AddAirlineCommandHandler(IAirlineRepository airlineRepository,
         IMapper mapper,
-        IUserContext userContext) : IRequestHandler<AddAirlineCommand,int>
+        IUserContext userContext) : IRequestHandler<AddAirlineCommand, int>
     {
         public async Task<int> Handle(AddAirlineCommand request, CancellationToken cancellationToken)
         {

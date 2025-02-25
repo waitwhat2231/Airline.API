@@ -12,6 +12,7 @@ namespace Airline.Domain.Entities
     {
         public string PassportNumber { get; set; } = default!;
         public int Wallet { get; set; } = 0;
-        public IEnumerable<Reservation> reservations = [];
+        public IEnumerable<Reservation>? reservations = [];
+        
     }
 }

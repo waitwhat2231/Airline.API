@@ -20,9 +20,11 @@ namespace Airline.Infrastructure.Repositories
             return entity.Id;
         }
 
-        public Task Delete(int Id)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            var airport = await context.Airports.FirstOrDefaultAsync(ai => ai.Id == Id) ?? throw new Domain.Exceptions.NotFoundException("Doesn't Exist");
+            context.Airports.Remove(airport);
+            await context.SaveChangesAsync();
         }
 
         public async Task<Airport?> GetById(int Id)
@@ -35,10 +37,13 @@ namespace Airline.Infrastructure.Repositories
             return airport;
         }
 
-        public async Task Update(int Id, Airport entity)
+        public async Task Update(int id, Domain.Entities.Airport entity)
         {
-            context.Update(entity);
+            var airline = await context.Airports.FirstOrDefaultAsync(ai => ai.Id == id) ?? throw new Domain.Exceptions.NotFoundException("Doesn't Exist");
+            entity.Id = id;
+            context.Airports.Update(entity);
             await context.SaveChangesAsync();
+
         }
 
     }

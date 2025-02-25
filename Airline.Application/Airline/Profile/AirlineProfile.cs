@@ -1,4 +1,4 @@
-﻿using Airline.Application.Airline.Commands;
+﻿using Airline.Application.Airline.Commands.Add;
 using Airline.Application.Airline.Dtos;
 using Airline.Domain.Entities;
 using AutoMapper;

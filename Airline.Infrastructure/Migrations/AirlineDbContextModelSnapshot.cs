@@ -47,7 +47,7 @@ namespace Airline.Infrastructure.Migrations
                     b.HasIndex("ManagerID")
                         .IsUnique();
 
-                    b.ToTable("Airlines");
+                    b.ToTable("Airlines", (string)null);
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.Airport", b =>
@@ -68,7 +68,7 @@ namespace Airline.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Airports");
+                    b.ToTable("Airports", (string)null);
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.Flight", b =>
@@ -105,7 +105,7 @@ namespace Airline.Infrastructure.Migrations
 
                     b.HasIndex("ToAirportId");
 
-                    b.ToTable("Flights");
+                    b.ToTable("Flights", (string)null);
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Payment", b =>
@@ -129,7 +129,7 @@ namespace Airline.Infrastructure.Migrations
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.ReservationEntities.Reservation", b =>
@@ -156,7 +156,7 @@ namespace Airline.Infrastructure.Migrations
 
                     b.HasIndex("PassengerId");
 
-                    b.ToTable("Reservations");
+                    b.ToTable("Reservations", (string)null);
                 });
 
             modelBuilder.Entity("Airline.Domain.Entities.User", b =>
