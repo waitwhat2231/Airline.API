@@ -1,4 +1,5 @@
 ﻿using Airline.Application.Airline.Commands.Add;
+using Airline.Application.Airline.Commands.Update;
 using Airline.Application.Airline.Dtos;
 using Airline.Domain.Entities;
 using AutoMapper;
@@ -15,6 +16,8 @@ namespace Airline.Application.Airline.Profile
         public AirlineProfile()
         {
             CreateMap<Domain.Entities.Airline, AddAirlineCommand>()
+                .ReverseMap();
+            CreateMap<Domain.Entities.Airline, UpdateAirlineCommand>()
                 .ReverseMap();
             CreateMap<Domain.Entities.Airline, GetAirlineDto>()
                 .ForMember(ai => ai.Flights, opt => opt.MapFrom(src => src.Flights))

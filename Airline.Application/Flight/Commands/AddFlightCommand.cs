@@ -10,7 +10,7 @@ namespace Airline.Application.Flight.Commands
 {
     public class AddFlightCommand : IRequest<int>
     {
-        public int Id { get; set; }
+        
         
         public int AirlineId { get; set; }
         public int FromAirportId { get; set; }

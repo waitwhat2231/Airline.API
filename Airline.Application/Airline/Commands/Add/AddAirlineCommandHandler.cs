@@ -16,9 +16,8 @@ namespace Airline.Application.Airline.Commands.Add
     {
         public async Task<int> Handle(AddAirlineCommand request, CancellationToken cancellationToken)
         {
-            var userId = userContext.GetCurrentUser()?.Id;
             var airline = mapper.Map<Domain.Entities.Airline>(request);
-            airline.ManagerID = userId;
+            
             int id = await airlineRepository.Add(airline);
             return id;
         }

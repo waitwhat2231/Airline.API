@@ -1,4 +1,5 @@
 ﻿using Airline.Application.Airline.Commands.Add;
+using Airline.Application.Airline.Commands.Delete;
 using Airline.Application.Airline.Dtos;
 using Airline.Application.Airline.Queries;
 using MediatR;
@@ -25,6 +26,13 @@ namespace Airline.API.Controllers
             var request = new GetAirlineQuery(Id);
             var airline= await mediator.Send(request);
             return Ok(airline);
+        }
+        [HttpDelete("{Id}")]
+        [Authorize]
+        public async Task<ActionResult> DeleteAirline([FromRoute] int Id)
+        {
+            await mediator.Send(new DeleteAirlineCommand(Id));
+            return NoContent();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Airline.Application.Reservation.Commands
 {
     public class AddReservationCommand : IRequest<int>
     {
-
+        public int FlightId { get; set; }
+        public string PassengerId { get; set; } = default!;
     }
 }

@@ -9,6 +9,7 @@ namespace Airline.Application.Airport.Dto
 {
     public class AirportDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string Location { get; set; } = default!;
         public IEnumerable<Domain.Entities.Flight> FlightsFrom = [];

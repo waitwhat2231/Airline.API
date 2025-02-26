@@ -10,10 +10,11 @@ namespace Airline.Domain.Entities.ReservationEntities
     {
         public int Id { get; set; }
         public int FlightId { get; set; }
-        public String PassengerId { get; set; } = default!;
+        public string PassengerId { get; set; } = default!;
         public bool PaymentStatus { get; set; } = false;
         public Flight PayedForFlight { get; set; } = default!;
         public User Passenger { get; set; } = default!;
+
         public IEnumerable<Payment>  PaymentRecord=default!;
     }
 }

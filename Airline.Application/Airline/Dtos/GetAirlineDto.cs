@@ -10,6 +10,7 @@ namespace Airline.Application.Airline.Dtos
 {
     public class GetAirlineDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string ContactNumber { get; set; } = default!;
         public UserInfoDTO Manager { get; set; } = default!;

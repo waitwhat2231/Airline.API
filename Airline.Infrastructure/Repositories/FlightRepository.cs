@@ -36,9 +36,35 @@ namespace Airline.Infrastructure.Repositories
             return flight;
         }
 
-        public Task Update(Flight flight)
+        public async Task<IEnumerable<Flight>> GetFlightsFromAirport(int airportId)
         {
-            throw new NotImplementedException();
+            var airport= await context.Airports.Include(air => air.FlightsFrom)
+                .FirstOrDefaultAsync(ai => ai.Id == airportId);
+            if (airport == null)
+            {
+                throw new Domain.Exceptions.NotFoundException("AirportNotFound");
+            }
+            var flights = airport.FlightsFrom.ToList();
+            return flights;
+
+        }
+
+        public async Task<IEnumerable<Flight>> GetFlightsToAirport(int airportId)
+        {
+            var airport = await context.Airports.Include(air => air.FlightsTo)
+            .FirstOrDefaultAsync(ai => ai.Id == airportId);
+            if (airport == null)
+            {
+                throw new Domain.Exceptions.NotFoundException("AirportNotFound");
+            }
+            var flights = airport.FlightsFrom.ToList();
+            return flights;
+        }
+
+        public async Task Update(Flight flight)
+        {
+            context.Flights.Update(flight);
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Airline.Application.Airline.Commands.Delete
 {
-    internal class DeleteAirlineCommandHandler(IAirlineRepository repository) : IRequestHandler<DeleteAirlineCommand>
+    internal class DeleteAirlineCommandHandler(IAirlineRepository repository) : IRequestHandler<DeleteAirlineCommand,Unit>
     {
-        public async Task Handle(DeleteAirlineCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteAirlineCommand request, CancellationToken cancellationToken)
         {
             await repository.DeleteAirline(request.Id);
+            return Unit.Value;
         }
     }
 }

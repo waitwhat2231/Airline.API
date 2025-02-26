@@ -13,6 +13,7 @@ namespace Airline.Application.Flight.Commands
     {
         public async Task<int> Handle(AddFlightCommand request, CancellationToken cancellationToken)
         {
+          
             var flight = mapper.Map<Domain.Entities.Flight>(request);
             var result = await repository.Add(flight);
             return result;

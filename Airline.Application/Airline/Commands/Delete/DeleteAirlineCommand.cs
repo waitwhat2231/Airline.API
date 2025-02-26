@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Airline.Application.Airline.Commands.Delete
 {
-    public class DeleteAirlineCommand : IRequest
+    public class DeleteAirlineCommand(int Id) : IRequest<Unit>
     {
-        public int Id { get; set; } 
+        public int Id { get; set; } = Id;
     }
 }

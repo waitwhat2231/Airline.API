@@ -13,5 +13,7 @@ namespace Airline.Domain.Repositories
         public Task<Flight?> GetFlight(int Id);
         public Task Update(Flight flight);
         public Task Delete(int Id);
+        public Task<IEnumerable<Flight>> GetFlightsFromAirport(int airportId);
+        public Task<IEnumerable<Flight>> GetFlightsToAirport(int airportId);
     }
 }
