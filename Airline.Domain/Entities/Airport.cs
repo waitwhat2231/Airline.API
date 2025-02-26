@@ -11,7 +11,7 @@ namespace Airline.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string Location { get; set; } = default!;
-        public IEnumerable<Flight> FlightsFrom = [];
-        public IEnumerable<Flight> FlightsTo = [];
+        public IEnumerable<Flight>? FlightsFrom { get; set; }
+        public IEnumerable<Flight>? FlightsTo { get; set; }
     }
 }

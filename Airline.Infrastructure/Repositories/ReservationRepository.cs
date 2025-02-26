@@ -1,6 +1,7 @@
 ﻿using Airline.Domain.Entities.ReservationEntities;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,9 @@ namespace Airline.Infrastructure.Repositories
 
         public async Task<Reservation?> GetReservation(int Id)
         {
-            var reservation = await context.Reservations.FindAsync(Id) ;
+            var reservation = await context.Reservations
+                .Include(res => res.Passenger)
+                .FirstOrDefaultAsync(res=>res.Id==Id);
             if(reservation == null)
             {
                 return null;

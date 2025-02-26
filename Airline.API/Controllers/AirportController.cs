@@ -1,6 +1,7 @@
 ﻿using Airline.Application.Airport.Commands;
 using Airline.Application.Airport.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Airline.API.Controllers
@@ -10,6 +11,7 @@ namespace Airline.API.Controllers
     public class AirportController (IMediator mediator): ControllerBase
     {
         [HttpPost]
+        [Authorize(Roles ="Administrator")]
         public async Task<ActionResult> AddAirport([FromBody]AddAirportCommand request)
         {
             var Id= await mediator.Send(request);

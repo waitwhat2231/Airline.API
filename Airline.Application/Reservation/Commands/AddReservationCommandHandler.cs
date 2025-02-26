@@ -1,4 +1,5 @@
-﻿using Airline.Domain.Repositories;
+﻿using Airline.Application.Users;
+using Airline.Domain.Repositories;
 using AutoMapper;
 using MediatR;
 using System;
@@ -11,7 +12,8 @@ namespace Airline.Application.Reservation.Commands
 {
     public class AddReservationCommandHandler(IMapper mapper ,
         IReservationRepository repository,
-        IFlightRepository flightRepository) : IRequestHandler<AddReservationCommand, int>
+        IFlightRepository flightRepository,
+        IUserContext userContext) : IRequestHandler<AddReservationCommand, int>
     {
         public async Task<int> Handle(AddReservationCommand request, CancellationToken cancellationToken)
         {
@@ -20,6 +22,8 @@ namespace Airline.Application.Reservation.Commands
             {
                 return -1;
             }
+            var user_id = userContext.GetCurrentUser().Id;
+            request.PassengerId = user_id;
             var reservation = mapper.Map<Domain.Entities.ReservationEntities.Reservation>(request);
             reservation.PaymentStatus = false;
            var Id = await repository.AddReservation(reservation);

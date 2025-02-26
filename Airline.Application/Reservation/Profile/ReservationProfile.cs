@@ -1,4 +1,5 @@
 ﻿using Airline.Application.Reservation.Commands;
+using Airline.Application.Reservation.DTO;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace Airline.Application.Reservation.Profile
         public ReservationProfile()
         {
             CreateMap<Domain.Entities.ReservationEntities.Reservation, AddReservationCommand>()
+                .ReverseMap();
+            CreateMap<Domain.Entities.ReservationEntities.Reservation, ReservationDto>()
+                .ForMember(r => r.Passenger, opt => opt.MapFrom(src => src.Passenger))
                 .ReverseMap();
         }
     }

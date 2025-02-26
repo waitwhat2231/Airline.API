@@ -15,6 +15,6 @@ namespace Airline.Domain.Entities.ReservationEntities
         public Flight PayedForFlight { get; set; } = default!;
         public User Passenger { get; set; } = default!;
 
-        public IEnumerable<Payment>  PaymentRecord=default!;
+        public IEnumerable<Payment>? PaymentRecord { get; set; }
     }
 }

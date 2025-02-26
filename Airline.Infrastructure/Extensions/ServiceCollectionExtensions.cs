@@ -19,11 +19,12 @@ public static class ServiceCollectionExtensions
 		services.AddDbContext<AirlineDbContext>(options => options.UseSqlServer(connectionString));
 		services.AddScoped<IAirlineRepository, AirlineRepository>();
         services.AddScoped<IAirportRepository, AirportRepository>();
-		services.AddScoped<IFlightRepository, FlightRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IFlightRepository, FlightRepository>();
+        services.AddScoped<ITokenRepository, TokenRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
         services.AddScoped<IRolesSeeder, RolesSeeder>();
 		services.AddScoped<IAdminSeeder, AdminSeeder>();
-		services.AddScoped<ITokenRepository, TokenRepository>();
-		services.AddScoped<IAccountRepository, AccountRepository>();
 		//this for identity and jwt when needed
 		services.AddIdentityCore<User>()
 

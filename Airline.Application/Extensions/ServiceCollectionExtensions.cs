@@ -1,6 +1,8 @@
 ﻿using Airline.Application.Airline.Commands.Behaviour;
 using Airline.Application.Airline.Commands.Delete;
 using Airline.Application.Airline.Commands.Update;
+using Airline.Application.Flight.Commands;
+using Airline.Application.Flight.Commands.Behaviour;
 using Airline.Application.Users;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -25,5 +27,6 @@ public static class ServiceCollectionExtensions
 		services.AddScoped<IUserContext, UserContext>();
         services.AddTransient(typeof(IPipelineBehavior<DeleteAirlineCommand,Unit>), typeof(AirlineCommandBehaviour<DeleteAirlineCommand,Unit>));
         services.AddTransient(typeof(IPipelineBehavior<UpdateAirlineCommand, Unit>), typeof(AirlineCommandBehaviour<UpdateAirlineCommand, Unit>));
+        services.AddTransient(typeof(IPipelineBehavior<AddFlightCommand, int>), typeof(FlightCommandBehaviour<AddFlightCommand, int>));
     }
 }
