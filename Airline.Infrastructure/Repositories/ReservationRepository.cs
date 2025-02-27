@@ -68,5 +68,17 @@ namespace Airline.Infrastructure.Repositories
                 .ToListAsync();
             return reservations;
         }
+
+        public async Task<int> AddPaymentToReservation(int reservationId)
+        {
+            var reservation = await context.Reservations.FindAsync(reservationId);
+            if(reservation == null)
+            {
+                throw new Domain.Exceptions.NotFoundException("Reservation does not exist");
+            }
+            var payment = new Payment();
+            payment.ReservationId = reservationId;
+            
+        }
     }
 }

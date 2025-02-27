@@ -1,18 +1,18 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Domain.Entities.ReservationEntities
+namespace Airline.Application.Payment.Commands
 {
-    public class Payment
+    public class AddPaymentCommand : IRequest<int>
     {
-        public int Id { get; set; }
+        public string UserId { get; set; } = default!;
         public int ReservationId { get; set; }
         [DataType(DataType.Date)]
         public DateTime PaymentDate { get; set; } = DateTime.Now;
-        public Reservation Reservation { get; set; } = default!;
     }
 }

@@ -20,6 +20,10 @@ namespace Airline.Application.Flight.FlightProfile
                 .ForMember(fl => fl.ToAirport, opt => opt.MapFrom(fl => fl.ToAirport))
                 .ForMember(fl=>fl.Reservations,opt=>opt.MapFrom(fl=>fl.Reservations))
                 .ReverseMap();
+            CreateMap<Domain.Entities.Flight, FlightFromAirportDto>()
+                .ReverseMap();
+            CreateMap<Domain.Entities.Flight, FlightToAirportDto>()
+               .ReverseMap();
         }
     }
 }

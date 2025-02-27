@@ -1,5 +1,4 @@
-﻿using Airline.Domain.Entities.ReservationEntities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Airline.Application.Flight.DTO
 {
-    public class GetFlightDTO
+    public class FlightFromAirportDto
     {
         public int Id { get; set; }
         public int AirlineId { get; set; }
@@ -19,9 +18,5 @@ namespace Airline.Application.Flight.DTO
         public int ExpectedHoursFlightTime { get; set; }
         public int AvailableSeats { get; set; }
         public int Cost { get; set; } = 0;
-        public IEnumerable<Domain.Entities.ReservationEntities.Reservation> Reservations = [];
-        public Domain.Entities.Airline Airline { get; set; } = default!;
-        public Domain.Entities.Airport FromAirport { get; set; } = default!;
-        public Domain.Entities.Airport ToAirport { get; set; } = default!;
     }
 }

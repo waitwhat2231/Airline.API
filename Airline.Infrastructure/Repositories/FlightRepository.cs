@@ -38,26 +38,30 @@ namespace Airline.Infrastructure.Repositories
 
         public async Task<IEnumerable<Flight>> GetFlightsFromAirport(int airportId)
         {
-            var airport= await context.Airports.Include(air => air.FlightsFrom)
+            var airport= await context.Airports
                 .FirstOrDefaultAsync(ai => ai.Id == airportId);
             if (airport == null)
             {
                 throw new Domain.Exceptions.NotFoundException("AirportNotFound");
             }
-            var flights = airport.FlightsFrom.ToList();
+            var flights = await context.Flights
+                .Where(fl => fl.FromAirportId == airportId)
+                .ToListAsync();
             return flights;
 
         }
 
         public async Task<IEnumerable<Flight>> GetFlightsToAirport(int airportId)
         {
-            var airport = await context.Airports.Include(air => air.FlightsTo)
+            var airport = await context.Airports
             .FirstOrDefaultAsync(ai => ai.Id == airportId);
             if (airport == null)
             {
                 throw new Domain.Exceptions.NotFoundException("AirportNotFound");
             }
-            var flights = airport.FlightsFrom.ToList();
+            var flights = await context.Flights
+                .Where(fl => fl.ToAirportId == airportId)
+                .ToListAsync();
             return flights;
         }
 
