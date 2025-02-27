@@ -1,4 +1,5 @@
-﻿using Airline.Domain.Entities.ReservationEntities;
+﻿using Airline.Domain.Entities;
+using Airline.Domain.Entities.ReservationEntities;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,11 @@ namespace Airline.Infrastructure.Repositories
     {
         public async Task<int> AddReservation(Reservation reservation)
         {
+            
             context.Reservations.Add(reservation);
+            var flight = await context.Flights.FindAsync(reservation.FlightId);
+            flight.AvailableSeats = flight.AvailableSeats - 1;
+             context.Flights.Update(flight);
             await context.SaveChangesAsync();
             return reservation.Id;
         }
@@ -49,6 +54,19 @@ namespace Airline.Infrastructure.Repositories
             }
             return reservation;
         }
-        
+
+        public async Task<IEnumerable<Reservation>> GetUserReservations(string UserId)
+        {
+            var reservations = await context.Reservations.Where(res => res.PassengerId == UserId).ToListAsync();
+            return reservations;
+        }
+        public async Task<IEnumerable<Reservation>> GetFlightReservations(int FlightId)
+        {
+            var reservations = await context.Reservations
+                .Include(res => res.Passenger)
+                .Where(res => res.FlightId == FlightId)
+                .ToListAsync();
+            return reservations;
+        }
     }
 }

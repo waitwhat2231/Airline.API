@@ -16,5 +16,6 @@ namespace Airline.Domain.Repositories
         public Task<bool> FillWallet(string email, int amount);
         //public Task<IEnumerable<IdentityError>> Verify(string email, string verficationToken);
         public Task<bool> CheckPassword(string userId, string password);
+        public Task<bool> UserExists(string email, string passportNumber);
     }
 }

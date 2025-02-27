@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Application.Reservation.Commands
+namespace Airline.Application.Reservation.Commands.Add
 {
     public class AddReservationCommand : IRequest<int>
     {

@@ -2,6 +2,7 @@
 using Airline.Application.User.Commands.Register;
 using Airline.Application.User.Commands.Register.AirlineManager;
 using Airline.Application.User.Commands.Token;
+using Airline.Application.User.Commands.Wallet;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -55,6 +56,19 @@ namespace Airline.API.Controllers
                 return Unauthorized();
             }
             return Ok(response);
+        }
+        [HttpPost]
+        [Route("fillWallet")]
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> FillUserWallet([FromBody] FillWalletCommand request)
+        {
+            var success = await mediator.Send(request);
+            if (!success)
+            {
+                return BadRequest("Something is wrong");
+            }
+            return Ok();
+
         }
     }
 }

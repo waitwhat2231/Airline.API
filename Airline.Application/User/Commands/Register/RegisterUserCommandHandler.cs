@@ -16,7 +16,11 @@ namespace Airline.Application.User.Commands.Register
     {
         public async Task<IEnumerable<IdentityError>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-
+            bool exists = await accountRepository.UserExists(request.Email, request.PassportNumber);
+            if (exists)
+            {
+                throw new Domain.Exceptions.UserAlreadyExistsException("User already exists");
+            }
             var user = mapper.Map<Domain.Entities.User>(request);
 
             var errors = await accountRepository.RegisterUser(user, request.Password);

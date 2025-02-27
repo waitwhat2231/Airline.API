@@ -64,15 +64,6 @@ namespace Airline.Infrastructure.Repositories
 
         public async Task<IEnumerable<IdentityError>> RegisterUser(User user, string password)
         {
-            var userInSystem = await userManager.FindByEmailAsync(user.Email);
-            if (userInSystem != null){
-                throw new UserAlreadyExistsException(user.Email);
-            }
-            userInSystem = await getFromPassportNum(user.PassportNumber);
-            if (userInSystem != null)
-            {
-                throw new UserAlreadyExistsException(user.Email);
-            }
             var check = await userManager.CreateAsync(user, password);
 
             if (check.Succeeded)
@@ -107,6 +98,21 @@ namespace Airline.Infrastructure.Repositories
         {
             await userManager.UpdateAsync(user);
             await dbcontext.SaveChangesAsync();
+        }
+
+        public async Task<bool> UserExists(string email, string passportNumber)
+        {
+            var userInSystem = await userManager.FindByEmailAsync(email);
+            if (userInSystem != null)
+            {
+                return true;
+            }
+            userInSystem = await getFromPassportNum(passportNumber);
+            if (userInSystem != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
     }

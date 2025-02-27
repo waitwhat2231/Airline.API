@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Airline.Application.Reservation.Commands
+namespace Airline.Application.Reservation.Commands.Add
 {
-    public class AddReservationCommandHandler(IMapper mapper ,
+    public class AddReservationCommandHandler(IMapper mapper,
         IReservationRepository repository,
         IFlightRepository flightRepository,
         IUserContext userContext) : IRequestHandler<AddReservationCommand, int>
@@ -18,7 +18,7 @@ namespace Airline.Application.Reservation.Commands
         public async Task<int> Handle(AddReservationCommand request, CancellationToken cancellationToken)
         {
             var flight = await flightRepository.GetFlight(request.FlightId);
-            if(flight == null)
+            if (flight == null)
             {
                 return -1;
             }
@@ -26,7 +26,7 @@ namespace Airline.Application.Reservation.Commands
             request.PassengerId = user_id;
             var reservation = mapper.Map<Domain.Entities.ReservationEntities.Reservation>(request);
             reservation.PaymentStatus = false;
-           var Id = await repository.AddReservation(reservation);
+            var Id = await repository.AddReservation(reservation);
             return Id;
         }
     }

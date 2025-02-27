@@ -1,4 +1,4 @@
-﻿using Airline.Application.Reservation.Commands;
+﻿using Airline.Application.Reservation.Commands.Add;
 using Airline.Application.Reservation.DTO;
 using AutoMapper;
 using System;
