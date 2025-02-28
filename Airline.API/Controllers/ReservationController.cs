@@ -1,10 +1,12 @@
-﻿using Airline.Application.Reservation.Commands.Add;
+﻿using Airline.Application.Payment.Commands;
+using Airline.Application.Reservation.Commands.Add;
 using Airline.Application.Reservation.Queries;
 using Airline.Application.Reservation.Queries.FlightReservations;
 using Airline.Application.Reservation.Queries.UserReservations;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 
 namespace Airline.API.Controllers
 {
@@ -50,6 +52,18 @@ namespace Airline.API.Controllers
         {
             var result = await mediator.Send(new GetFlightReservationsQuery(FlightId));
             return Ok(result);
+        }
+        [HttpPost]
+        [Route("api/reservation/{reservationId}/payment")]
+        [Authorize]
+        public async Task<ActionResult> AddPaymentToReservation(int reservationId)
+        {
+            var Id = await mediator.Send(new AddPaymentCommand(reservationId));
+            if(Id == -1)
+            {
+                return BadRequest();
+            }
+            return Created();
         }
     }
 }

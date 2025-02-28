@@ -16,7 +16,7 @@ namespace Airline.Infrastructure.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "Cost",
-                table: "Reservations",
+                table: "Flights",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -27,7 +27,7 @@ namespace Airline.Infrastructure.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Cost",
-                table: "Reservations");
+                table: "Flights");
 
             migrationBuilder.AddColumn<int>(
                 name: "Amount",

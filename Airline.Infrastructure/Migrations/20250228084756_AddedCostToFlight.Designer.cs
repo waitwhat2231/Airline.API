@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Airline.Infrastructure.Migrations
 {
     [DbContext(typeof(AirlineDbContext))]
-    [Migration("20250227184043_AddedCostToFlight")]
+    [Migration("20250228084756_AddedCostToFlight")]
     partial class AddedCostToFlight
     {
         /// <inheritdoc />
@@ -88,6 +88,9 @@ namespace Airline.Infrastructure.Migrations
                     b.Property<int>("AvailableSeats")
                         .HasColumnType("int");
 
+                    b.Property<int>("Cost")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
@@ -139,9 +142,6 @@ namespace Airline.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Cost")
-                        .HasColumnType("int");
 
                     b.Property<int>("FlightId")
                         .HasColumnType("int");

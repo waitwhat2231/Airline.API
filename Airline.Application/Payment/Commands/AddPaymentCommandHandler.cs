@@ -1,4 +1,5 @@
-﻿using Airline.Domain.Repositories;
+﻿using Airline.Application.Users;
+using Airline.Domain.Repositories;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace Airline.Application.Payment.Commands
 {
-    internal class AddPaymentCommandHandler(IReservationRepository reservationRepository) : IRequestHandler<AddPaymentCommand, int>
+    internal class AddPaymentCommandHandler(IReservationRepository reservationRepository,
+        IUserContext userContext) : IRequestHandler<AddPaymentCommand, int>
     {
         public async Task<int> Handle(AddPaymentCommand request, CancellationToken cancellationToken)
         {
-            
-            return -1;
+            var userId = userContext.GetCurrentUser().Id;
+            var result = await reservationRepository.AddPaymentToReservation(request.ReservationId,userId);
+            return result;
+           
         }
     }
 }

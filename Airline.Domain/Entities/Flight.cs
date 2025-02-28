@@ -21,6 +21,7 @@ namespace Airline.Domain.Entities
         public DateTime DepartureTime { get; set; }
         public int ExpectedHoursFlightTime { get; set; }
         public int AvailableSeats { get; set; }
+        public int Cost { get; set; } = 0;
         public IEnumerable<Domain.Entities.ReservationEntities.Reservation>? Reservations { get; set; }
         public Airline Airline { get; set; } = default!;
         public Airport FromAirport { get; set; } = default!;

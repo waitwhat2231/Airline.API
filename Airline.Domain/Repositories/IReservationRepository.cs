@@ -12,7 +12,7 @@ namespace Airline.Domain.Repositories
         public Task<int> AddReservation(Reservation reservation);
         public Task ChangePaymentStatus(int id, bool status);
         public Task DelteReservation(int id);
-        public Task<int> AddPaymentToReservation(int reservationId);
+        public Task<int> AddPaymentToReservation(int reservationId,string userId);
         public Task<Domain.Entities.ReservationEntities.Reservation?> GetReservation(int Id);
         public Task<IEnumerable<Domain.Entities.ReservationEntities.Reservation>> GetUserReservations(string UserId);
         public  Task<IEnumerable<Domain.Entities.ReservationEntities.Reservation>> GetFlightReservations(int FlightId);

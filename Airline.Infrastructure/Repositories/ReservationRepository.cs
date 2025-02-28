@@ -2,6 +2,7 @@
 using Airline.Domain.Entities.ReservationEntities;
 using Airline.Domain.Repositories;
 using Airline.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Airline.Infrastructure.Repositories
 {
-    public class ReservationRepository(AirlineDbContext context) : IReservationRepository
+    public class ReservationRepository(AirlineDbContext context,IAccountRepository accountRepository) : IReservationRepository
     {
         public async Task<int> AddReservation(Reservation reservation)
         {
@@ -69,16 +70,23 @@ namespace Airline.Infrastructure.Repositories
             return reservations;
         }
 
-        public async Task<int> AddPaymentToReservation(int reservationId)
+        public async Task<int> AddPaymentToReservation(int reservationId, string userId)
         {
             var reservation = await context.Reservations.FindAsync(reservationId);
             if(reservation == null)
             {
                 throw new Domain.Exceptions.NotFoundException("Reservation does not exist");
             }
-            var payment = new Payment();
-            payment.ReservationId = reservationId;
-            
+            var payment = new Payment
+            {
+                ReservationId = reservationId
+            };
+            var user = await accountRepository.GetUserAsync(userId);
+            var flight = await context.Flights.FindAsync(reservation.FlightId);
+            await accountRepository.FillWallet(user.Email, (-1 * flight.Cost));
+            context.Payments.Add(payment);
+            await context.SaveChangesAsync();
+            return payment.Id;
         }
     }
 }

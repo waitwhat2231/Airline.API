@@ -31,7 +31,11 @@ namespace Airline.Application.Reservation.Commands.Behaviour
                 {
                     throw new Exception("no enough seats");
                 }
-                
+                var now = DateTime.Now;
+                if(now>= flight.DepartureTime)
+                {
+                    throw new Exception("Flight is no longer available");
+                }
             }
             if (request is GetFlightReservationsQuery getFlightReservationsQuery)
             {
